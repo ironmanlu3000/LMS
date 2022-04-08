@@ -1,0 +1,49 @@
+{% extends 'base.html'%}
+{% block title %}issued list{%endblock title%}
+{%block content%}
+
+{%if issuelist%}
+<div class="col-sm-12">
+    <h2 class="text-center alert alert-info"> Issued Books </h2>
+    <table class="table table-bordered border-primary">
+        <thead>
+            <tr class="text-center alert alert-info table-bordered  border-primary">
+                <!--<th scope="col">Sr.No.</th>-->
+                <th scope="col">ID</th>
+                <th scope="col">Enroll number</th>
+                <th scope="col">Student name</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Book name</th> 
+                <th scope="col">Auther</th> 
+                <th scope="col">Issue date</th>
+                <th scope="col">Expiry date</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for issue in issuelist %}
+            <tr>
+                <!--<th scope="row">1</th>-->
+                <th scope="row">{{issue.id}}</th>
+                <td>{{issue.enrollnumber}}</td>
+                <td>{{issue.studentname}}</td>
+                <td>{{issue.branch}}</td>
+                <td>{{issue.bookname}}</td>
+                <td>{{issue.auther}}</td>
+                <td>{{issue.issueddate}}</td>
+                <td>{{issue.expiryddate}}</td>
+                <td class="text-center ">
+                    <form action="{% url 'returnbook' issue.id %}" method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <input type="submit" class= "btn btn-success" value="RETURN" />
+                    </form>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{%else%}
+<h1>no data</h1>
+{%endif%}
+{% endblock %}

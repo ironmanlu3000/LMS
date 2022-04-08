@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+{% block title %}bookData{%endblock title%}
+{%block content%}
+
+{%if books%}
+<div class="col-sm-12">
+               <h2 class="text-center alert alert-info"> Available Books </h2>
+        <table class="table table-bordered border-primary">
+            <thead>
+                <tr>
+                    <!--<th scope="col">Sr.No.</th>-->
+                    <th scope="col">ID</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Auther</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for book in books %}
+                <tr>
+                    <!--<th scope="row">1</th>-->
+                    <th scope="row">{{book.id}}</th>
+                    <td>{{book.bookname}}</td>
+                    <td>{{book.auther}}</td>
+                    <td>{{book.ISBN}}</td>
+                    <td>{{book.category}}</td>
+                    <td>{{book.quantity}}</td>
+                    <td class="text-center">
+                        <form action="{% url 'delete_book' book.id %}" method="POST" class="d-inline"> 
+                            {% csrf_token %}
+                            <input type="submit" class=" btn btn-danger" value="DELETE"/>
+                         </form>
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+</div>
+{%else%}
+<h1>no data</h1>
+{%endif%}
+{% endblock %}

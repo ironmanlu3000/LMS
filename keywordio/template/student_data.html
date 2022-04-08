@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+{% block title %}StudentData{%endblock title%}
+{%block content%}
+
+{%if students%}
+<div class="col-sm-12">
+        <h2 class="text-center alert alert-info"> Registered students </h2>
+    <table class="table table-bordered border-primary">
+        <thead>
+            <tr>
+                <!--<th scope="col">Sr.No.</th>-->
+                <th scope="col">ID</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Branch</th>
+                <th scope="col">Enrollnumber</th>
+                <th scope="col">username</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for student in students %}
+            <tr>
+                <!--<th scope="row">1</th>-->
+                <th style="font-size:large" scope="row">{{student.id}}</th>
+                <td style="font-size:large">{{student.studentfirstname}} {{student.studentlastname}}</td>
+                <td style="font-size:large">{{student.branch}}</td>
+                <td style="font-size:large">{{student.enrollnumber}}</td>
+                <td style="font-size:large">{{student.username}}</td>
+                <td class="text-center">
+                <form action="{% url 'delete_student' student.id %}" method="POST" class="d-inline">
+                    {% csrf_token %}
+                    <input type="submit" class=" btn btn-danger" value="DELETE"/>
+                </form>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{%else%}
+<h1>no data</h1>
+{%endif%}
+
+{% endblock %}
